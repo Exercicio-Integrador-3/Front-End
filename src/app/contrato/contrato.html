@@ -1,0 +1,52 @@
+<div class="formContainer">
+    <div id="formContrato">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div id="identificadores">
+            <mat-form-field appearance="outline" class="ids">
+                <mat-label>ID Pessoal</mat-label>
+                <mat-select formControlName="idPessoa">
+                    @for(id of idsPessoas; track id){
+                        <mat-option [value]="id">
+                            {{id}}
+                        </mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="ids">
+                <mat-label>ID Perfil</mat-label>
+                <mat-select formControlName="idPerfil">
+                    @for(idPerfil of idPerfis; track idPerfil){
+                        <mat-option [value]="idPerfil">
+                            {{idPerfil}}
+                        </mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+        </div>
+            <div id="data">
+                <mat-form-field appearance="outline" class="data"> 
+                    <mat-label>Selecione o período do contrato</mat-label>
+                    <mat-date-range-input [rangePicker]="picker">
+                        <input matStartDate placeholder="Data de inicio" formControlName="dataInicio">
+                        <input matEndDate placeholder="Data de fim" formControlName="dataFim">
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+            </div>
+            <div id="horaSem">
+                <mat-form-field appearance="outline" class="data">
+                    <mat-label>Insira a quantidade de horas semanais</mat-label>
+                    <input matInput type="number" formControlName="horaSem">
+                </mat-form-field>
+            </div>
+            <div id="salario">
+                <mat-form-field appearance="outline" class="data">
+                    <mat-label>Insira o salario por hora</mat-label>
+                    <input matInput type="number" formControlName="salarioPorHora">
+                </mat-form-field>
+            </div>
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Criar</button>
+        </form>
+    </div>
+</div>
