@@ -1,0 +1,24 @@
+.main-structure{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; 
+    
+    .top{
+        background-color: rgb(14, 48, 141);
+    }
+
+    .bottom{
+    display: flex;
+    flex-direction: row;
+    flex: 1; 
+        
+    .left{
+        padding: 0 0;
+        border-right: 1px solid rgb(209, 209, 209); 
+    }
+
+    .right{
+        width: 100%;
+    }
+    }
+}
