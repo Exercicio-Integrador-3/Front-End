@@ -1,1 +1,62 @@
-<p>MODAL GUSTINHA</p>
+<h2 mat-dialog-title>Novo Projeto</h2>
+
+<form [formGroup]="projetoForm" class="form-container">
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Nome</mat-label>
+    <input matInput formControlName="nome" />
+    <mat-error *ngIf="projetoForm.get('nome')?.hasError('required')">
+      O nome é obrigatório
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Data de Início</mat-label>
+    <input
+      matInput
+      [matDatepicker]="pickerInicio"
+      formControlName="dataInicio"
+      placeholder="dd/mm/aaaa"
+      readonly
+    />
+    <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+    <mat-datepicker #pickerInicio></mat-datepicker>
+    <mat-error *ngIf="projetoForm.get('dataInicio')?.hasError('required')">
+      A data de início é obrigatória
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Data de Fim</mat-label>
+    <input
+      matInput
+      [matDatepicker]="pickerFim"
+      formControlName="dataFim"
+      placeholder="dd/mm/aaaa"
+      readonly
+    />
+    <mat-datepicker-toggle matSuffix [for]="pickerFim"></mat-datepicker-toggle>
+    <mat-datepicker #pickerFim></mat-datepicker>
+    <mat-error *ngIf="projetoForm.get('dataFim')?.hasError('required')">
+      A data de fim é obrigatória
+    </mat-error>
+    <mat-error *ngIf="projetoForm.get('dataFim')?.hasError('dataInvalida')">
+      A data de fim não pode ser anterior à data de início
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Descrição</mat-label>
+    <textarea matInput rows="3" formControlName="descricao"></textarea>
+    <mat-error *ngIf="projetoForm.get('descricao')?.hasError('required')">
+      A descrição é obrigatória
+    </mat-error>
+    <mat-error *ngIf="projetoForm.get('descricao')?.hasError('maxlength')">
+      Máximo de 200 caracteres
+    </mat-error>
+  </mat-form-field>
+
+  <div class="button-row">
+    <button mat-button color="warn" (click)="fecharModal()">Cancelar</button>
+    <button mat-flat-button color="primary" (click)="salvarProjeto()">Salvar</button>
+  </div>
+</form>
