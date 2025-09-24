@@ -32,8 +32,8 @@ export class AlocacaoService {
     return this.http.get<Alocacao[]>(this.apiUrl);
   }
 
-  getCustoTotal(id: number): Observable<string> {
-    return this.http.get(`${this.apiUrl}/custo/${id}`, { responseType: 'text' });
+  getCustoTotal(id: number): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/custo/${id}`);
   }
 
   getCustoNoPeriodo(id: number, dataInicio: string, dataFim: string): Observable<string> {
