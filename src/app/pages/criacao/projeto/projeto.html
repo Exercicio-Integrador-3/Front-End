@@ -11,37 +11,31 @@
   <div class="tabela-projeto">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-      <!-- Coluna ID -->
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef> ID </th>
         <td mat-cell *matCellDef="let projeto"> {{projeto.id}} </td>
       </ng-container>
 
-      <!-- Coluna Nome -->
       <ng-container matColumnDef="nome">
         <th mat-header-cell *matHeaderCellDef> Nome </th>
         <td mat-cell *matCellDef="let projeto"> {{projeto.nome}} </td>
       </ng-container>
 
-      <!-- Coluna Data Início -->
       <ng-container matColumnDef="dataInicio">
         <th mat-header-cell *matHeaderCellDef> Início </th>
         <td mat-cell *matCellDef="let projeto"> {{projeto.dataInicio | date:'dd/MM/yyyy'}} </td>
       </ng-container>
 
-      <!-- Coluna Data Fim -->
       <ng-container matColumnDef="dataFim">
         <th mat-header-cell *matHeaderCellDef> Fim </th>
         <td mat-cell *matCellDef="let projeto"> {{projeto.dataFim | date:'dd/MM/yyyy'}} </td>
       </ng-container>
 
-      <!-- Coluna Descrição -->
       <ng-container matColumnDef="descricao">
         <th mat-header-cell *matHeaderCellDef> Descrição </th>
         <td mat-cell *matCellDef="let projeto"> {{projeto.descricao}} </td>
       </ng-container>
-
-      <!-- Cabeçalho e linhas -->
+      
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>

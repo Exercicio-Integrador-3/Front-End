@@ -1,17 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
-import { DatePipe } from '@angular/common'; // ✅ IMPORTA O PIPE
+import { DatePipe } from '@angular/common';
 import { ProjetoModalComponent } from '../../../shared/modal/projeto-modal/projeto-modal.component';
-
-export interface Projeto {
-  id: number;
-  nome: string;
-  dataInicio: string;
-  dataFim: string;
-  descricao: string;
-}
+import { Projeto, ProjetoService } from '../../../services/projeto-service';
 
 @Component({
   selector: 'app-projeto',
@@ -20,33 +13,28 @@ export interface Projeto {
     MatDialogModule,
     MatIconModule,
     MatTableModule,
-    DatePipe 
+    DatePipe
   ],
   templateUrl: './projeto.html',
   styleUrl: './projeto.scss'
 })
-export class ProjetoComponent {
+export class ProjetoComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'nome', 'dataInicio', 'dataFim', 'descricao'];
 
-  dataSource: Projeto[] = [
-    {
-      id: 1,
-      nome: 'Projeto Alpha',
-      dataInicio: '2025-01-10',
-      dataFim: '2025-06-30',
-      descricao: 'Sistema de gestão corporativa'
-    },
-    {
-      id: 2,
-      nome: 'Projeto Beta',
-      dataInicio: '2025-02-15',
-      dataFim: '2025-08-01',
-      descricao: 'Aplicativo mobile para clientes'
-    }
-  ];
+  dataSource: Projeto[] = [];
 
-  constructor(private dialog: MatDialog) {}
+  constructor(
+    private dialog: MatDialog,
+    private projetoService: ProjetoService
+  ) {}
+
+  ngOnInit(): void {
+    this.projetoService.getProjetos().subscribe({
+      next: (projetos) => this.dataSource = projetos,
+      error: (err) => console.error('Erro ao buscar projetos', err)
+    });
+  }
 
   abrirModal() {
     this.dialog.open(ProjetoModalComponent, {

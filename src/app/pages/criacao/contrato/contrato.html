@@ -17,8 +17,13 @@
       </ng-container>
 
       <ng-container matColumnDef="pessoaId">
-        <th mat-header-cell *matHeaderCellDef> Pessoa </th>
+        <th mat-header-cell *matHeaderCellDef> ID Pessoa </th>
         <td mat-cell *matCellDef="let c"> {{ c.pessoaId }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="nomePessoa">
+        <th mat-header-cell *matHeaderCellDef> Nome Pessoa </th>
+        <td mat-cell *matCellDef="let c"> {{ c.nomePessoa }} </td>
       </ng-container>
 
       <ng-container matColumnDef="perfilId">

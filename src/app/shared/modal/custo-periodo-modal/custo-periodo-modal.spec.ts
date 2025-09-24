@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Periodo } from './periodo.component';
+import { CustoPeriodoModal } from './custo-periodo-modal.component';
 
-describe('Periodo', () => {
-  let component: Periodo;
-  let fixture: ComponentFixture<Periodo>;
+describe('CustoPeriodoModal', () => {
+  let component: CustoPeriodoModal;
+  let fixture: ComponentFixture<CustoPeriodoModal>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Periodo]
+      imports: [CustoPeriodoModal]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Periodo);
+    fixture = TestBed.createComponent(CustoPeriodoModal);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
