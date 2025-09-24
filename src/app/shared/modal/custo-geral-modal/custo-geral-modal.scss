@@ -1,0 +1,32 @@
+
+
+#container{
+    padding: 0;
+}
+.content{
+    width: 100%;
+    .top{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        background-color: #0e308d;
+        h1{
+            color: white;
+        }
+        border-bottom: 1px solid grey;
+    }
+    .bottom{
+        color:black;   
+        padding-left: 30px;
+        font-size: large;
+    }
+
+    #calcular-btn{
+        background-color: #1c9bfc;
+        border-radius: 20px;
+        color: white;
+        width: 30%;
+        
+    }
+}

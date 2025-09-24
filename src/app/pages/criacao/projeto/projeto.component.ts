@@ -5,6 +5,7 @@ import { MatTableModule } from '@angular/material/table';
 import { DatePipe } from '@angular/common';
 import { ProjetoModalComponent } from '../../../shared/modal/projeto-modal/projeto-modal.component';
 import { Projeto, ProjetoService } from '../../../services/projeto-service';
+import { CustoGeralModalComponent } from '../../../shared/modal/custo-geral-modal/custo-geral-modal.component';
 
 @Component({
   selector: 'app-projeto',
@@ -20,7 +21,7 @@ import { Projeto, ProjetoService } from '../../../services/projeto-service';
 })
 export class ProjetoComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'nome', 'dataInicio', 'dataFim', 'descricao'];
+  displayedColumns: string[] = ['id', 'nome', 'dataInicio', 'dataFim', 'descricao','acoes'];
 
   dataSource: Projeto[] = [];
 
