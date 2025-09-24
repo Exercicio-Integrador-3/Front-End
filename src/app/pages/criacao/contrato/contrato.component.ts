@@ -1,18 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
-import { DatePipe, CurrencyPipe } from '@angular/common'; // ✅ IMPORTA OS PIPES
+import { DatePipe, CurrencyPipe } from '@angular/common';
 import { ContratoModalComponent } from '../../../shared/modal/contrato-modal/contrato-modal.component';
+import { ContratoService } from '../../../services/contrato-service';
 
 export interface Contrato {
-  id: number;
+  Id: number;
   pessoaId: number;
   perfilId: number;
   dataInicio: string;
   dataFim: string;
+  descricao: string;
   horasSemanais: number;
   salarioHora: number;
+  nomePessoa: string;
 }
 
 @Component({
@@ -28,32 +31,23 @@ export interface Contrato {
   templateUrl: './contrato.html',
   styleUrl: './contrato.scss'
 })
-export class ContratoComponent {
+export class ContratoComponent implements OnInit{
 
-  displayedColumns: string[] = ['id', 'pessoaId', 'perfilId', 'dataInicio', 'dataFim', 'horasSemanais', 'salarioHora'];
+  displayedColumns: string[] = ['id', 'nomePessoa', 'pessoaId',  'perfilId', 'dataInicio', 'dataFim', 'horasSemanais', 'salarioHora'];
 
-  dataSource: Contrato[] = [
-    {
-      id: 1,
-      pessoaId: 101,
-      perfilId: 2001,
-      dataInicio: '2025-01-10',
-      dataFim: '2025-06-30',
-      horasSemanais: 40,
-      salarioHora: 50.75
-    },
-    {
-      id: 2,
-      pessoaId: 102,
-      perfilId: 2002,
-      dataInicio: '2025-02-15',
-      dataFim: '2025-12-31',
-      horasSemanais: 30,
-      salarioHora: 65.0
-    }
-  ];
+  dataSource: Contrato[] = [];
 
-  constructor(private dialog: MatDialog) {}
+  constructor(
+    private dialog: MatDialog,
+    private contratoService: ContratoService
+  ) {}
+
+  ngOnInit(): void {
+    this.contratoService.getContratos().subscribe({
+      next: (contrato) => this.dataSource = contrato,
+      error: (err) => console.error('Erro ao buscar contratos', err)
+    });
+  }
 
   abrirModal() {
     this.dialog.open(ContratoModalComponent, {

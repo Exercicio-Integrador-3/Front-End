@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Geral } from './geral.component';
+import { CustoGeralModal } from './custo-geral-modal.component';
 
-describe('Geral', () => {
-  let component: Geral;
-  let fixture: ComponentFixture<Geral>;
+describe('CustoGeralModal', () => {
+  let component: CustoGeralModal;
+  let fixture: ComponentFixture<CustoGeralModal>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Geral]
+      imports: [CustoGeralModal]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Geral);
+    fixture = TestBed.createComponent(CustoGeralModal);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

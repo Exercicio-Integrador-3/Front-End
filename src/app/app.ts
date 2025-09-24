@@ -9,7 +9,8 @@ import { SidebarComponent } from "./shared/sidebar/sidebar.component";
   imports: [
     RouterOutlet,
     HeaderComponent,
-    SidebarComponent
+    SidebarComponent,
+  
   ],
   templateUrl: './app.html',
   styleUrls: ['./app.scss'] 
