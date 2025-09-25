@@ -60,17 +60,4 @@ export class ProjetoComponent implements OnInit {
     });
   }
 
-<<<<<<< HEAD
-
-=======
-  calcularCusto(projeto : Projeto){
-    this.dialog.open(CustoGeralModalComponent, {
-      width: '700px',
-      height: '600px',
-      disableClose: false,
-      data: { id: projeto.id }
-    }
-    );
-  }
->>>>>>> 6e2dcbc015bc8a0a665aabc8f0c154bfc0e2e13d
 }
