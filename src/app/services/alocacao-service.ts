@@ -3,8 +3,11 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 
 export interface Alocacao{
+  nome: string,
+  funcao: string,
   idPerfilPessoa: number,
   idProjeto: number,
+  nomeProjeto: string,
   quantidadeHoras: number
 }
 
