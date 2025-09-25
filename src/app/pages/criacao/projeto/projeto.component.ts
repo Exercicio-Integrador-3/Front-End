@@ -38,7 +38,7 @@ export class ProjetoComponent implements OnInit {
   }
 
   abrirModal() {
-  const dialogRef = this.dialog.open(ProjetoModalComponent, {
+    const dialogRef = this.dialog.open(ProjetoModalComponent, {
     width: '500px',
     disableClose: false,    
   });
@@ -50,6 +50,15 @@ export class ProjetoComponent implements OnInit {
       });
     }
   });
-}
+  }  
+  calcularCusto(projeto : Projeto){
+    this.dialog.open(CustoGeralModalComponent, {
+      width: '700px',
+      height: '575px',
+      disableClose: false,
+      data: { id: projeto.id }
+    });
+  }
+
 
 }
