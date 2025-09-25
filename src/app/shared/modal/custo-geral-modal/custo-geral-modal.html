@@ -6,21 +6,37 @@
         <form [formGroup]="range">
             <div class="bottom">
                 <div class="custoTotal">
-                    <p>Custo total do projeto: {{ custoTotal }}</p>
+                    <h2>TOTAL</h2>
+                    <h2>{{ custoTotal | currency:'BRL':'symbol':'1.2-2'}}</h2>
                 </div>
-                <div class="custosData">
-                    <mat-form-field>
-                        <mat-date-range-input [rangePicker]="picker">
-                            <input matStartDate formControlName="start" placeholder="Data de inicio">
-                            <input matEndDate formControlName="end" placeholder="Data final">
-                        </mat-date-range-input>
-                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-date-range-picker #picker></mat-date-range-picker>
-                    </mat-form-field>
+                <hr>
+                <div class="custoData">
+                    <h2>PERIODO</h2>
+                    <div class="datePickers">
+                        <mat-form-field  appearance="outline">
+                            <mat-label>Data de Início</mat-label>
+                            <input matInput [matDatepicker]="picker1"  formControlName="start" placeholder="dd/mm/yyyy">
+                            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field  appearance="outline">
+                            <mat-label>Data de Fim</mat-label>
+                            <input matInput [matDatepicker]="picker2" formControlName="end" placeholder="dd/mm/yyyy">
+                            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <h2> {{valorCalculado | currency:'BRL':'symbol':'1.2-2'}}</h2>
                 </div>
             </div>
         </form>
-        <button matButton="elevated" id="calcular-btn">Calcular</button>
-        
+        <div class="bts">
+            <button class="clear-btn" mat-raised-button color="primary" 
+            (click)="clear()"
+            [disabled]="range.untouched">LIMPAR</button>
+            <button class="close-btn" mat-raised-button color="warn" 
+            (click)="closeModal()"
+            >FECHAR</button>
+        </div>
     </div>
 </mat-dialog-content>
