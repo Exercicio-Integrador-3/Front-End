@@ -6,7 +6,7 @@ import { AlocacaoService } from '../../../services/alocacao-service';
 import { AlocacaoModalComponent } from '../../../shared/modal/alocacao-modal/alocacao-modal.component';
 
 export interface Alocacao{
-  idPessoa: number,
+  idPerfilPessoa: number,
   idProjeto: number,
   quantidadeHoras: number
 }
