@@ -37,9 +37,18 @@ export class ProjetoComponent implements OnInit {
   }
 
   abrirModal() {
-    this.dialog.open(ProjetoModalComponent, {
-      width: '400px',
-      disableClose: false
-    });
-  }
+  const dialogRef = this.dialog.open(ProjetoModalComponent, {
+    width: '500px',
+    disableClose: false,    
+  });
+
+  dialogRef.afterClosed().subscribe((criado) => {
+    if (criado) {
+      this.projetoService.getProjetos().subscribe({
+        next: (projetos) => this.dataSource = projetos
+      });
+    }
+  });
+}
+
 }

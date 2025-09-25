@@ -11,19 +11,19 @@
   <div class="tabela-alocacao">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-      <ng-container matColumnDef="idPessoa">
-        <th mat-header-cell *matHeaderCellDef> ID </th>
-        <td mat-cell *matCellDef="let alocacao"> {{ alocacao.idPessoa }} </td>
+      <ng-container matColumnDef="idPerfilPessoa">
+        <th mat-header-cell *matHeaderCellDef> ID Perfil Pessoa </th>
+        <td mat-cell *matCellDef="let alocacao"> {{ alocacao.idPerfilPessoa }} </td>
       </ng-container>
 
       <ng-container matColumnDef="idProjeto">
-        <th mat-header-cell *matHeaderCellDef> ID Pessoa </th>
+        <th mat-header-cell *matHeaderCellDef> ID Projeto </th>
         <td mat-cell *matCellDef="let alocacao"> {{ alocacao.idProjeto }} </td>
       </ng-container>
 
 
       <ng-container matColumnDef="quantidadeHoras">
-        <th mat-header-cell *matHeaderCellDef> Perfil </th>
+        <th mat-header-cell *matHeaderCellDef> quantidadeHoras </th>
         <td mat-cell *matCellDef="let alocacao"> {{ alocacao.quantidadeHoras }} </td>
       </ng-container>
       

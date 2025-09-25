@@ -8,8 +8,8 @@ import { ContratoService } from '../../../services/contrato-service';
 
 export interface Contrato {
   Id: number;
-  pessoaId: number;
-  perfilId: number;
+  nome: string;
+  funcao: string;
   dataInicio: string;
   dataFim: string;
   descricao: string;
@@ -32,9 +32,7 @@ export interface Contrato {
   styleUrl: './contrato.scss'
 })
 export class ContratoComponent implements OnInit{
-
-  displayedColumns: string[] = ['id', 'nomePessoa', 'pessoaId',  'perfilId', 'dataInicio', 'dataFim', 'horasSemanais', 'salarioHora'];
-
+  displayedColumns: string[] = ['id', 'nome', 'funcao', 'dataInicio', 'dataFim', 'horasSemanais', 'salarioHora'];
   dataSource: Contrato[] = [];
 
   constructor(
@@ -48,10 +46,11 @@ export class ContratoComponent implements OnInit{
       error: (err) => console.error('Erro ao buscar contratos', err)
     });
   }
-
+ 
   abrirModal() {
     this.dialog.open(ContratoModalComponent, {
-      width: '400px',
+      width: '600px',
+      height: '635px',
       disableClose: false
     });
   }

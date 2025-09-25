@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 
 export interface Contrato {
   Id: number;
-  pessoaId: number;
-  perfilId: number;
+  nome: string;
+  funcao: string;
   dataInicio: string;
   dataFim: string;
   descricao: string;
@@ -43,4 +43,5 @@ export class ContratoService {
   createContrato(contrato: CreateContratoDto): Observable<HttpResponse<void>> {
     return this.http.post<void>(this.apiUrl, contrato, { observe: 'response' });
   }
+
 }
