@@ -43,4 +43,19 @@ export class ContratoService {
   createContrato(contrato: CreateContratoDto): Observable<HttpResponse<void>> {
     return this.http.post<void>(this.apiUrl, contrato, { observe: 'response' });
   }
+  private apiUrl = 'http://localhost:8080/contrato';
+
+  constructor(private http: HttpClient) {}
+
+  getContratos(): Observable<Contrato[]> {
+    return this.http.get<Contrato[]>(this.apiUrl);
+  }
+
+  getContratosByPessoaId(id: number): Observable<Contrato[]> {
+    return this.http.get<Contrato[]>(`${this.apiUrl}/${id}`);
+  }
+
+  createContrato(contrato: CreateContratoDto): Observable<HttpResponse<void>> {
+    return this.http.post<void>(this.apiUrl, contrato, { observe: 'response' });
+  }
 }
