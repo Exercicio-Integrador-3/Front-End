@@ -1,1 +1,42 @@
-<p>custo-geral-modal works!</p>
+<mat-dialog-content id="container">
+    <div class="content">
+        <div class="top">
+            <h1>CUSTOS</h1>
+        </div>
+        <form [formGroup]="range">
+            <div class="bottom">
+                <div class="custoTotal">
+                    <h2>TOTAL</h2>
+                    <h2>{{ custoTotal | currency:'BRL':'symbol':'1.2-2'}}</h2>
+                </div>
+                <hr>
+                <div class="custoData">
+                    <h2>PERIODO</h2>
+                    <div class="datePickers">
+                        <mat-form-field  appearance="outline">
+                            <mat-label>Data de Início</mat-label>
+                            <input matInput [matDatepicker]="picker1"  formControlName="start" placeholder="dd/mm/yyyy">
+                            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field  appearance="outline">
+                            <mat-label>Data de Fim</mat-label>
+                            <input matInput [matDatepicker]="picker2" formControlName="end" placeholder="dd/mm/yyyy">
+                            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <h2> {{valorCalculado | currency:'BRL':'symbol':'1.2-2'}}</h2>
+                </div>
+            </div>
+        </form>
+        <div class="bts">
+            <button class="close-btn" mat-button color="warn" 
+            (click)="closeModal()"
+            >FECHAR</button>
+            <button class="clear-btn" mat-flat-button color="primary" 
+            (click)="clear()"
+            [disabled]="range.untouched">LIMPAR</button>
+        </div>
+    </div>
+</mat-dialog-content>

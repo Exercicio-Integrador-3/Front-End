@@ -1,0 +1,54 @@
+
+
+#container{
+    padding: 0;
+}
+.content{
+    width: 100%;
+    .top{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        background-color: #0e308d;
+        h1{
+            color: white;
+        }
+        border-bottom: 1px solid grey;
+    }
+    .bottom{
+        color:black;   
+        font-size: large;
+        .custoTotal{
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+            .custoData{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                .datePickers{
+                    display: flex;
+                    flex-direction: row;   
+                    gap: 1rem;     
+                }
+            }
+    }
+    .bts{
+        display: flex;
+        justify-content: right;  
+        width: 100%;
+            .clear-btn{
+                width: 15%;
+                margin-right: 30px;
+
+            }
+            .close-btn{
+                width: 15%;
+            }
+        gap : 1rem;
+        }
+}
