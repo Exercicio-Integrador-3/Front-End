@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 export interface Alocacao{
   idPerfilPessoa: number,
@@ -33,7 +33,8 @@ export class AlocacaoService {
   }
 
   getCustoTotal(id: number): Observable<number> {
-    return this.http.get<number>(`${this.apiUrl}/custo/${id}`);
+     return this.http.get(`${this.apiUrl}/custo/${id}`, { responseType: 'text' })
+       .pipe(map(valor => parseFloat(valor.replace(',', '.')))); 
   }
 
   getCustoNoPeriodo(id: number, dataInicio: string, dataFim: string): Observable<string> {
