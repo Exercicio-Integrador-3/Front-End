@@ -77,8 +77,16 @@ export class ContratoModalComponent implements OnInit {
 
   salvarContrato() {
     if (this.contratoForm.valid) {
-      const dto: CreateContratoDto = this.contratoForm.value;
-      this.contratoService.createContrato(dto).subscribe({
+      const novoContrato: CreateContratoDto = {
+        pessoaId: this.contratoForm.value.pessoaId,
+        perfilId: this.contratoForm.value.perfilId,
+        dataInicio: this.formatarData(this.contratoForm.value.dataInicio),
+        dataFim: this.formatarData(this.contratoForm.value.dataFim),
+        descricao: this.contratoForm.value.descricao,
+        horasSemanais: this.contratoForm.value.horasSemanais,
+        salarioHora: this.contratoForm.value.salarioHora,
+      }
+      this.contratoService.createContrato(novoContrato).subscribe({
         next: () => this.dialogRef.close(true),
         error: (err) => console.error('Erro ao salvar contrato', err)
       });
@@ -87,5 +95,9 @@ export class ContratoModalComponent implements OnInit {
 
   fecharModal() {
     this.dialogRef.close(false);
+  }
+
+  private formatarData(data: Date): string {
+    return data ? data.toISOString().split('T')[0] : '';
   }
 }
