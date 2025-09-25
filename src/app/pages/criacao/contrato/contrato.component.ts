@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { DatePipe, CurrencyPipe } from '@angular/common';
-import { DatePipe, CurrencyPipe } from '@angular/common';
 import { ContratoModalComponent } from '../../../shared/modal/contrato-modal/contrato-modal.component';
-import { ContratoService } from '../../../services/contrato-service';
 import { ContratoService } from '../../../services/contrato-service';
 
 export interface Contrato {
@@ -16,10 +13,8 @@ export interface Contrato {
   dataInicio: string;
   dataFim: string;
   descricao: string;
-  descricao: string;
   horasSemanais: number;
   salarioHora: number;
-  nomePessoa: string;
   nomePessoa: string;
 }
 
@@ -37,10 +32,7 @@ export interface Contrato {
   styleUrl: './contrato.scss'
 })
 export class ContratoComponent implements OnInit{
-export class ContratoComponent implements OnInit{
-
   displayedColumns: string[] = ['id', 'nome', 'funcao', 'dataInicio', 'dataFim', 'horasSemanais', 'salarioHora'];
-
   dataSource: Contrato[] = [];
 
   constructor(
@@ -54,20 +46,7 @@ export class ContratoComponent implements OnInit{
       error: (err) => console.error('Erro ao buscar contratos', err)
     });
   }
-  dataSource: Contrato[] = [];
-
-  constructor(
-    private dialog: MatDialog,
-    private contratoService: ContratoService
-  ) {}
-
-  ngOnInit(): void {
-    this.contratoService.getContratos().subscribe({
-      next: (contrato) => this.dataSource = contrato,
-      error: (err) => console.error('Erro ao buscar contratos', err)
-    });
-  }
-
+ 
   abrirModal() {
     this.dialog.open(ContratoModalComponent, {
       width: '600px',
