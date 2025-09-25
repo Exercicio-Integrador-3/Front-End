@@ -38,8 +38,8 @@ export class ProjetoComponent implements OnInit {
 
   abrirModal() {
   const dialogRef = this.dialog.open(ProjetoModalComponent, {
-    width: '400px',
-    disableClose: false
+    width: '500px',
+    disableClose: false,    
   });
 
   dialogRef.afterClosed().subscribe((criado) => {

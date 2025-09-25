@@ -6,7 +6,7 @@ import { AlocacaoService } from '../../../services/alocacao-service';
 import { AlocacaoModalComponent } from '../../../shared/modal/alocacao-modal/alocacao-modal.component';
 
 export interface Alocacao{
-  idPessoa: number,
+  idPerfilPessoa: number,
   idProjeto: number,
   quantidadeHoras: number
 }
@@ -24,7 +24,7 @@ export interface Alocacao{
 })
 export class AlocacaoComponent implements OnInit{
 
-  displayedColumns: string[] = ['idPessoa', 'idProjeto', 'quantidadeHoras'];
+  displayedColumns: string[] = ['idPerfilPessoa', 'idProjeto', 'quantidadeHoras'];
 
   dataSource: Alocacao[] = [];
 

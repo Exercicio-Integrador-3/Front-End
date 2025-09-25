@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 
 export interface Contrato {
   Id: number;
-  pessoaId: number;
-  perfilId: number;
+  nome: string;
+  funcao: string;
   dataInicio: string;
   dataFim: string;
   descricao: string;

@@ -3,7 +3,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface Alocacao{
-  idPessoa: number,
+  idPerfilPessoa: number,
   idProjeto: number,
   quantidadeHoras: number
 }
