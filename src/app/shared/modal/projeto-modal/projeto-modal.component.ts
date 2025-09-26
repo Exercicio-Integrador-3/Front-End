@@ -30,42 +30,67 @@ export const CUSTOM_DATE_FORMATS = {
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule,
-    MatNativeDateModule,
   ],
-  providers: [
-    { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS }
-  ],
+  providers: [{ provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS }],
   templateUrl: './projeto-modal.html',
   styleUrl: './projeto-modal.scss'
 })
 export class ProjetoModalComponent {
   projetoForm: FormGroup;
+  minDate: Date;
 
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<ProjetoModalComponent>,
     private projetoService: ProjetoService
   ) {
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0);
+    this.minDate = hoje;
+
     this.projetoForm = this.fb.group({
-      nome: ['', Validators.required],
+      nome: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/)
+        ]
+      ],
       dataInicio: ['', Validators.required],
       dataFim: ['', Validators.required],
       descricao: ['', [Validators.required, Validators.maxLength(200)]],
     }, { validators: this.validarIntervaloDatas });
   }
 
-  private validarIntervaloDatas(form: FormGroup) {
+  formatarNome() {
+    const control = this.projetoForm.get('nome');
+    const value = control?.value;
+    if (value) {
+      const formatado = value
+        .trim()
+        .replace(/\s+/g, ' ')
+        .toLowerCase()
+        .replace(/\b\w/g, (l: string) => l.toUpperCase());
+      control?.setValue(formatado);
+    }
+  }
+
+  validarIntervaloDatas(form: FormGroup) {
     const inicio = form.get('dataInicio')?.value;
     const fim = form.get('dataFim')?.value;
-    if (inicio && fim && fim < inicio) {
-      form.get('dataFim')?.setErrors({ dataInvalida: true });
-    } else {
-      if (form.get('dataFim')?.hasError('dataInvalida')) {
-        form.get('dataFim')?.setErrors(null);
+
+    if (inicio && fim) {
+      if (fim <= inicio) {
+        form.get('dataFim')?.setErrors({ dataInvalida: true });
+      } else {
+        if (form.get('dataFim')?.hasError('dataInvalida')) {
+          form.get('dataFim')?.setErrors(null);
+        }
       }
     }
     return null;
   }
+
 
   salvarProjeto() {
     if (this.projetoForm.valid) {

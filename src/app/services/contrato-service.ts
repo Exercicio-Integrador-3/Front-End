@@ -8,7 +8,6 @@ export interface Contrato {
   funcao: string;
   dataInicio: string;
   dataFim: string;
-  descricao: string;
   horasSemanais: number;
   salarioHora: number;
   nomePessoa: string;
@@ -19,7 +18,6 @@ export interface CreateContratoDto {
   perfilId: number;
   dataInicio: string;
   dataFim: string;
-  descricao: string;
   horasSemanais: number;
   salarioHora: number;
 }

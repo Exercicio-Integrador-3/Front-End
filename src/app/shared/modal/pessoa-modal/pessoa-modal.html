@@ -14,6 +14,9 @@
         <mat-error *ngIf="pessoaForm.get('nome')?.hasError('maxlength')">
           Máximo de 100 caracteres
         </mat-error>
+        <mat-error *ngIf="pessoaForm.get('nome')?.hasError('pattern')">
+          Apenas letras e espaços são permitidos
+        </mat-error>
       </mat-form-field>
 
       <div class="button-row">
