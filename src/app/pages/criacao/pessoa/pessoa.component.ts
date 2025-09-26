@@ -42,7 +42,7 @@ export class PessoaComponent implements OnInit{
   abrirModal() {
     this.dialog.open(PessoaModalComponent, {
       width: '600px',
-      height: '635px',
+      height: '300px',
       disableClose: false
     });
   }

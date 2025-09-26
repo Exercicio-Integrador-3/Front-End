@@ -1,1 +1,32 @@
-<p>pessoa-modal works!</p>
+<div class="modal-nova-pessoa">
+  <div class="title">
+    <h2 mat-dialog-title>Nova Pessoa</h2>
+  </div>
+
+  <div class="form">
+    <form [formGroup]="pessoaForm" class="form-container">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="nome" />
+        <mat-error *ngIf="pessoaForm.get('nome')?.hasError('required')">
+          O nome é obrigatório
+        </mat-error>
+        <mat-error *ngIf="pessoaForm.get('nome')?.hasError('maxlength')">
+          Máximo de 100 caracteres
+        </mat-error>
+      </mat-form-field>
+
+      <div class="button-row">
+        <button mat-button color="warn" (click)="fecharModal()">Cancelar</button>
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="salvarPessoa()"
+          [disabled]="!pessoaForm.valid"
+        >
+          Salvar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
