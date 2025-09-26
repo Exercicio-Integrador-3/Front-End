@@ -54,7 +54,7 @@ export class ProjetoComponent implements OnInit {
   calcularCusto(projeto : Projeto){
     this.dialog.open(CustoGeralModalComponent, {
       width: '700px',
-      height: '575px',
+      height: '500px',
       disableClose: false,
       data: { id: projeto.id }
     });

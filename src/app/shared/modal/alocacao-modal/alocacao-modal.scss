@@ -1,18 +1,46 @@
-.modal-nova-alocacao {
-  padding: 20px;
+/* força o mat-dialog a ter tamanho fixo */
+::ng-deep .mat-mdc-dialog-container {
+  width: 600px !important;
+  height: 90vh !important; /* altura fixa da janela */
   display: flex;
   flex-direction: column;
-  height: 100%; 
+  overflow: hidden; /* remove scroll externo */
+}
+
+::ng-deep .mat-mdc-dialog-content {
+  overflow: hidden !important;
+  padding: 0 !important;
+}
+
+.modal-nova-alocacao {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #0e308d;
 
   .title {
     text-align: center;
-    margin-bottom: 16px;
+    color: white;
+    flex-shrink: 0;
+    padding: 10px 0;
+  }
+
+  .form {
+    background-color: white;
+    padding: 10px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
   }
 
   .scrollable {
-    max-height: 70vh; 
+    flex: 1;
     overflow-y: auto;
+    max-height: 100%; 
     padding-right: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
 
   .form-container {
@@ -43,7 +71,10 @@
   .button-row {
     display: flex;
     justify-content: flex-end;
-    margin-top: 16px;
     gap: 8px;
+    background-color: white;
+    padding: 10px;
+    flex-shrink: 0;
+    border-top: 1px solid #ddd;
   }
 }

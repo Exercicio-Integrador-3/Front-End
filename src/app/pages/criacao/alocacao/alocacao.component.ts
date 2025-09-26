@@ -49,6 +49,7 @@ export class AlocacaoComponent implements OnInit {
   abrirModal(): void {
     const dialogRef = this.dialog.open(AlocacaoModalComponent, {
       width: '600px',
+      height: '90vh',
       disableClose: false
     });
 
@@ -58,4 +59,6 @@ export class AlocacaoComponent implements OnInit {
       }
     });
   }
+
+
 }

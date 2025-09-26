@@ -54,7 +54,7 @@ export class ContratoComponent implements OnInit {
   abrirModal() {
     const dialogRef = this.dialog.open(ContratoModalComponent, {
       width: '600px',
-      height: '490px',
+      height: '480px',
       disableClose: false
     });
 
