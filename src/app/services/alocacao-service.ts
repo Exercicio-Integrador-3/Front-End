@@ -12,12 +12,12 @@ export interface Alocacao{
 }
 
 export interface CreateAlocacaoDto {
-  pessoaId: number;
-  projetoId: number;
-  contratoId: number;
-  dataInicio: string;
-  dataFim: string;
+  idsPessoas: number[];
+  idsPerfil: number[];
+  idProjeto: number;
+  quantidadeHoras: number;
 }
+
 
 @Injectable({
   providedIn: 'root'
