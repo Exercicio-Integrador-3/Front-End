@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -29,6 +29,7 @@ export class ContratoModalComponent implements OnInit {
   contratoForm: FormGroup;
   pessoas: Pessoa[] = []; 
   minDate = new Date();
+  error? = null;
 
   perfis = [
     { id: 1, nome: 'Gerente' },
@@ -79,6 +80,7 @@ export class ContratoModalComponent implements OnInit {
         }
       }
     });
+
   }
 
   carregarPessoas() {
@@ -119,13 +121,17 @@ export class ContratoModalComponent implements OnInit {
       }
       this.contratoService.createContrato(novoContrato).subscribe({
         next: () => this.dialogRef.close(true),
-        error: (err) => console.error('Erro ao salvar contrato', err)
+        error: (err) => this.error = err
       });
     }
   }
 
   fecharModal() {
     this.dialogRef.close(false);
+  }
+
+  setError(){
+    this.error = null;
   }
 
   private formatarData(data: Date): string {
