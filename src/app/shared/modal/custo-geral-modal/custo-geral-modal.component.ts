@@ -1,63 +1,102 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { MatDatepickerModule, MatDateRangeInput } from '@angular/material/datepicker';
-import { FormControl, FormGroup, Validators} from '@angular/forms';
-import { FormsModule } from '@angular/forms'
-import { MatFormField,  MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
-import { ReactiveFormsModule } from '@angular/forms';
 import { AlocacaoService } from '../../../services/alocacao-service';
+import { ProjetoService, Projeto } from '../../../services/projeto-service';
 import { MatButtonModule } from '@angular/material/button';
-import { CurrencyPipe } from '@angular/common';
-
+import { CommonModule, CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-custo-geral-modal',
-  imports: [MatDialogModule, FormsModule, MatDatepickerModule, 
-            MatFormFieldModule, MatInputModule, MatFormField, 
-            ReactiveFormsModule, MatButtonModule, CurrencyPipe ],
+  imports: [
+    MatDialogModule,
+    FormsModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    CurrencyPipe,
+    CommonModule
+  ],
   templateUrl: './custo-geral-modal.html',
   providers: [provideNativeDateAdapter()],
   styleUrl: './custo-geral-modal.scss'
 })
-export class CustoGeralModalComponent implements OnInit{
+export class CustoGeralModalComponent implements OnInit {
   protected range = new FormGroup({
-    start: new FormControl<Date | null>(null),
-    end: new FormControl<Date |null>(null)
-  }); 
-  protected custoTotal : string = "";
-  protected valorCalculado : string = "0";
-  
-  constructor(@Inject(MAT_DIALOG_DATA) protected data: any,
-              private service : AlocacaoService,
-              private ref : MatDialogRef<CustoGeralModalComponent>){}
-  
+    start: new FormControl<Date | null>(null, Validators.required),
+    end: new FormControl<Date | null>(null, Validators.required)
+  });
+
+  protected custoTotal: string = "";
+  protected valorCalculado: string = "0";
+
+  minDate!: Date;
+  maxDate!: Date;
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA) protected data: any,
+    private service: AlocacaoService,
+    private projetoService: ProjetoService,
+    private ref: MatDialogRef<CustoGeralModalComponent>
+  ) {}
 
   ngOnInit(): void {
-    this.service.getCustoTotal(this.data.id).subscribe({
-      next:(custo) => this.custoTotal = "" + custo.toString(),
-      error: (err) =>console.error('Erro', err)
+    this.projetoService.getProjetoById(this.data.id).subscribe({
+      next: (projeto: Projeto | null) => {
+        if (projeto) {
+
+          this.minDate = this.parseDateWithoutTimezone(projeto.dataInicio);
+          this.maxDate = this.parseDateWithoutTimezone(projeto.dataFim);
+
+          this.range.valueChanges.subscribe((val) => {
+            const start = val.start;
+            const end = val.end;
+
+            if (start && (start < this.minDate || start > this.maxDate)) {
+              this.range.get('start')?.setErrors({ foraDoIntervalo: true });
+            }
+            if (end && (end < this.minDate || end > this.maxDate)) {
+              this.range.get('end')?.setErrors({ foraDoIntervalo: true });
+            }
+
+            if (start && end && !this.range.invalid) {
+              this.calcularPorPeriodo(this.data.id, start, end);
+            }
+          });
+        }
+      },
+      error: (err) => console.error('Erro ao buscar projeto:', err)
     });
-    this.range.valueChanges.subscribe(val =>{
-      if(val.start && val.end){
-        this.calcularPorPeriodo(this.data.id, val.start, val.end);
-      }
-    })
+
+    this.service.getCustoTotal(this.data.id).subscribe({
+      next: (custo) => (this.custoTotal = "" + custo.toString()),
+      error: (err) => console.error('Erro', err)
+    });
   }
 
-  calcularPorPeriodo(id : number,start : Date, end : Date){
-    const startString :string = start.toISOString().split('T')[0];
-    const endString :string = end.toISOString().split('T')[0];
+  private parseDateWithoutTimezone(dateStr: string): Date {
+    const [year, month, day] = dateStr.split('-').map(Number);
+    return new Date(year, month - 1, day);
+  }
 
+  calcularPorPeriodo(id: number, start: Date, end: Date) {
+    const startString: string = start.toISOString().split('T')[0];
+    const endString: string = end.toISOString().split('T')[0];
 
     this.service.getCustoNoPeriodo(id, startString, endString).subscribe({
-      next: (custo) => this.valorCalculado = "" + custo.toString(),
+      next: (custo) => (this.valorCalculado = "" + custo.toString()),
       error: (err) => console.error('Erro: ', err)
     });
   }
 
-  clear(){
+  clear() {
     this.range.reset({
       start: null,
       end: null
@@ -65,7 +104,7 @@ export class CustoGeralModalComponent implements OnInit{
     this.valorCalculado = "0";
   }
 
-  closeModal(){
+  closeModal() {
     this.ref.close();
   }
 }

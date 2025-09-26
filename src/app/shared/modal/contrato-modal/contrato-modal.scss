@@ -19,10 +19,6 @@
         grid-template-columns: 1fr 1fr;
         gap: 1rem;
 
-        .descricao-field {
-        grid-column: span 2;
-        }
-
         @media (max-width: 600px) {
         grid-template-columns: 1fr;
         .descricao-field {

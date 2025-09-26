@@ -12,7 +12,6 @@ export interface Contrato {
   funcao: string;
   dataInicio: string;
   dataFim: string;
-  descricao: string;
   horasSemanais: number;
   salarioHora: number;
   nomePessoa: string;
@@ -55,7 +54,7 @@ export class ContratoComponent implements OnInit {
   abrirModal() {
     const dialogRef = this.dialog.open(ContratoModalComponent, {
       width: '600px',
-      height: '635px',
+      height: '490px',
       disableClose: false
     });
 

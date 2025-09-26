@@ -7,14 +7,14 @@
     <form [formGroup]="contratoForm" class="form-container">
       <div class="form-grid">
         <mat-form-field appearance="outline" class="full-width">
-          <mat-label>ID Pessoa</mat-label>
+          <mat-label>Pessoa</mat-label>
           <mat-select formControlName="pessoaId">
-            <mat-option *ngFor="let id of pessoasIds" [value]="id">
-              {{ id }}
+            <mat-option *ngFor="let pessoa of pessoas" [value]="pessoa.id">
+              {{ pessoa.nome }} - {{ pessoa.id }}
             </mat-option>
           </mat-select>
           <mat-error *ngIf="contratoForm.get('pessoaId')?.hasError('required')">
-            O ID da pessoa é obrigatório
+            A pessoa é obrigatória
           </mat-error>
         </mat-form-field>
 
@@ -30,12 +30,12 @@
           </mat-error>
         </mat-form-field>
 
-
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Data de Início</mat-label>
           <input
             matInput
             [matDatepicker]="pickerInicio"
+            [min]="minDate"
             formControlName="dataInicio"
             placeholder="dd/mm/aaaa"
             readonly
@@ -52,6 +52,7 @@
           <input
             matInput
             [matDatepicker]="pickerFim"
+            [min]="minDate"
             formControlName="dataFim"
             placeholder="dd/mm/aaaa"
             readonly
@@ -62,18 +63,7 @@
             A data de fim é obrigatória
           </mat-error>
           <mat-error *ngIf="contratoForm.get('dataFim')?.hasError('dataInvalida')">
-            A data de fim não pode ser anterior à data de início
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" class="full-width descricao-field">
-          <mat-label>Descrição</mat-label>
-          <textarea matInput rows="3" formControlName="descricao"></textarea>
-          <mat-error *ngIf="contratoForm.get('descricao')?.hasError('required')">
-            A descrição é obrigatória
-          </mat-error>
-          <mat-error *ngIf="contratoForm.get('descricao')?.hasError('maxlength')">
-            Máximo de 200 caracteres
+            A data de fim deve ser posterior à data de início
           </mat-error>
         </mat-form-field>
 
@@ -83,6 +73,12 @@
           <mat-error *ngIf="contratoForm.get('horasSemanais')?.hasError('required')">
             Informe as horas semanais
           </mat-error>
+          <mat-error *ngIf="contratoForm.get('horasSemanais')?.hasError('min')">
+            Deve ser maior que 0
+          </mat-error>
+          <mat-error *ngIf="contratoForm.get('horasSemanais')?.hasError('max')">
+            Não pode ultrapassar 40 horas semanais
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="full-width">
@@ -90,6 +86,9 @@
           <input matInput type="number" formControlName="salarioHora" step="0.01" />
           <mat-error *ngIf="contratoForm.get('salarioHora')?.hasError('required')">
             Informe o salário por hora
+          </mat-error>
+          <mat-error *ngIf="contratoForm.get('salarioHora')?.hasError('min')">
+            O salário deve ser maior que 0
           </mat-error>
         </mat-form-field>
       </div>

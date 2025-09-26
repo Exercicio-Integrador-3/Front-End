@@ -29,7 +29,26 @@ export class PessoaModalComponent {
     private dialogRef: MatDialogRef<PessoaModalComponent>
   ) {
     this.pessoaForm = this.fb.group({
-      nome: ['', [Validators.required, Validators.maxLength(100)]]
+      nome: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(100),
+          Validators.pattern(/^[A-Za-zÀ-ÿ\s]*$/) 
+        ]
+      ]
+    });
+
+    // Capitalização em tempo real
+    this.pessoaForm.get('nome')?.valueChanges.subscribe((valor: string) => {
+      if (valor) {
+        const capitalizado = valor
+          .toLowerCase()
+          .replace(/\b\w/g, (l) => l.toUpperCase()); 
+        if (capitalizado !== valor) {
+          this.pessoaForm.get('nome')?.setValue(capitalizado, { emitEvent: false });
+        }
+      }
     });
   }
 
