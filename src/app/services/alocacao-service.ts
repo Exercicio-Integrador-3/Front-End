@@ -37,13 +37,28 @@ export class AlocacaoService {
 
   getCustoTotal(id: number): Observable<number> {
      return this.http.get(`${this.apiUrl}/custo/${id}`, { responseType: 'text' })
-       .pipe(map(valor => parseFloat(valor.replace(',', '.')))); 
+       .pipe(map(valor => {
+         const cleaned = (valor ?? '').toString().trim().replace(/\./g, '').replace(',', '.');
+         const parsed = parseFloat(cleaned);
+         if (isNaN(parsed)) {
+           console.warn('getCustoTotal: valor inválido do backend:', valor);
+           return 0;
+         }
+         return parsed;
+       })); 
   }
 
-  getCustoNoPeriodo(id: number, dataInicio: string, dataFim: string): Observable<string> {
-    return this.http.get(
-      `${this.apiUrl}/custo/${id}/${dataInicio}/${dataFim}`,
-      { responseType: 'text' }
-    );
+  getCustoNoPeriodo(id: number, dataInicio: string, dataFim: string): Observable<number> {
+    return this.http.get(`${this.apiUrl}/custo/${id}/${dataInicio}/${dataFim}`, { responseType: 'text' })
+      .pipe(map(valor => {
+        const text = (valor ?? '').toString().trim();
+        const cleaned = text.replace(/\./g, '').replace(',', '.');
+        const parsed = parseFloat(cleaned);
+        if (isNaN(parsed)) {
+          console.warn('getCustoNoPeriodo: valor inválido do backend:', valor);
+          return 0;
+        }
+        return parsed;
+      }));
   }
 }

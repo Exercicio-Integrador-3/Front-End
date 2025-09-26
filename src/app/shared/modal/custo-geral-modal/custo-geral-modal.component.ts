@@ -34,8 +34,8 @@ export class CustoGeralModalComponent implements OnInit {
     end: new FormControl<Date | null>(null, Validators.required)
   });
 
-  protected custoTotal: string = "";
-  protected valorCalculado: string = "0";
+  protected custoTotal: number = 0;
+  protected valorCalculado: number = 0;
 
   minDate!: Date;
   maxDate!: Date;
@@ -76,7 +76,7 @@ export class CustoGeralModalComponent implements OnInit {
     });
 
     this.service.getCustoTotal(this.data.id).subscribe({
-      next: (custo) => (this.custoTotal = "" + custo.toString()),
+      next: (custo) => (this.custoTotal = custo),
       error: (err) => console.error('Erro', err)
     });
   }
@@ -91,7 +91,7 @@ export class CustoGeralModalComponent implements OnInit {
     const endString: string = end.toISOString().split('T')[0];
 
     this.service.getCustoNoPeriodo(id, startString, endString).subscribe({
-      next: (custo) => (this.valorCalculado = "" + custo.toString()),
+      next: (custo) => (this.valorCalculado = custo),
       error: (err) => console.error('Erro: ', err)
     });
   }
@@ -101,7 +101,7 @@ export class CustoGeralModalComponent implements OnInit {
       start: null,
       end: null
     });
-    this.valorCalculado = "0";
+    this.valorCalculado = 0;
   }
 
   closeModal() {
