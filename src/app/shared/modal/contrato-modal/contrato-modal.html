@@ -29,7 +29,6 @@
             O perfil é obrigatório
           </mat-error>
         </mat-form-field>
-
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Data de Início</mat-label>
           <input
@@ -38,6 +37,7 @@
             [min]="minDate"
             formControlName="dataInicio"
             placeholder="dd/mm/aaaa"
+            (dateChange)="setError()"
             readonly
           />
           <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
@@ -55,6 +55,7 @@
             [min]="minDate"
             formControlName="dataFim"
             placeholder="dd/mm/aaaa"
+            (dateChange)="setError()"
             readonly
           />
           <mat-datepicker-toggle matSuffix [for]="pickerFim"></mat-datepicker-toggle>
@@ -65,11 +66,11 @@
           <mat-error *ngIf="contratoForm.get('dataFim')?.hasError('dataInvalida')">
             A data de fim deve ser posterior à data de início
           </mat-error>
-        </mat-form-field>
-
+        </mat-form-field> 
+       
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Horas Semanais</mat-label>
-          <input matInput type="number" formControlName="horasSemanais" />
+          <input matInput type="number" formControlName="horasSemanais"/>
           <mat-error *ngIf="contratoForm.get('horasSemanais')?.hasError('required')">
             Informe as horas semanais
           </mat-error>
@@ -93,6 +94,13 @@
         </mat-form-field>
       </div>
 
+      <div class="error">
+         @if(error){
+            <mat-error>
+            Erro ao tentar criar contrato.<br>Datas de contratos conflitantes. 
+            </mat-error>
+          }
+        </div>
       <div class="button-row">
         <button mat-button color="warn" (click)="fecharModal()">Cancelar</button>
         <button mat-flat-button color="primary" (click)="salvarContrato()" [disabled]="contratoForm.invalid">

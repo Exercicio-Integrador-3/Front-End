@@ -21,14 +21,22 @@
 
         @media (max-width: 600px) {
         grid-template-columns: 1fr;
-        .descricao-field {
-            grid-column: span 1;
-        }
-        }
+            .descricao-field {
+                grid-column: span 1;
+            }
+        } 
     }
+    .error{
+            display : flex;
+            justify-content: center;
+            width: 100%;
+        }
+    
     .button-row {
         display: flex;
         justify-content: flex-end;
         padding: 20px;
     }
+
+   
 }
