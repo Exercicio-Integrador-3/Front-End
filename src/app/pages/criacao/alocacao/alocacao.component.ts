@@ -5,17 +5,18 @@ import { MatTableModule } from '@angular/material/table';
 import { AlocacaoService } from '../../../services/alocacao-service';
 import { AlocacaoModalComponent } from '../../../shared/modal/alocacao-modal/alocacao-modal.component';
 
-export interface Alocacao{
-  nome: string,
-  funcao: string,
-  idPerfilPessoa: number,
-  idProjeto: number,
-  nomeProjeto: string,
-  quantidadeHoras: number
+export interface Alocacao {
+  nome: string;
+  funcao: string;
+  idPerfilPessoa: number;
+  idProjeto: number;
+  nomeProjeto: string;
+  quantidadeHoras: number;
 }
 
 @Component({
   selector: 'app-alocacao',
+  standalone: true,
   imports: [
     MatDialogModule,
     MatIconModule,
@@ -23,12 +24,10 @@ export interface Alocacao{
   ],
   templateUrl: './alocacao.html',
   styleUrl: './alocacao.scss',
-  standalone: true,
 })
-export class AlocacaoComponent implements OnInit{
+export class AlocacaoComponent implements OnInit {
 
   displayedColumns: string[] = ['nome', 'funcao', 'nomeProjeto', 'quantidadeHoras'];
-
   dataSource: Alocacao[] = [];
 
   constructor(
@@ -37,17 +36,26 @@ export class AlocacaoComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
+    this.getAlocacoes();
+  }
+
+  getAlocacoes(): void {
     this.alocacaoService.getAlocacoes().subscribe({
-      next: (alocacaoes) => this.dataSource = alocacaoes,
-      error: (err) => console.error('Erro ao buscar alocacoes', err)
+      next: (alocacoes) => this.dataSource = alocacoes,
+      error: (err) => console.error('Erro ao buscar alocações', err)
     });
   }
 
-  abrirModal() {
-    this.dialog.open(AlocacaoModalComponent, {
-      width: '400px',
+  abrirModal(): void {
+    const dialogRef = this.dialog.open(AlocacaoModalComponent, {
+      width: '600px',
       disableClose: false
     });
-  }
 
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.getAlocacoes();
+      }
+    });
+  }
 }
