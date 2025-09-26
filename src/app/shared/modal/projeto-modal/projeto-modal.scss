@@ -1,12 +1,14 @@
 .modal-novo-projeto {
-  padding: 10px;
-  
+  background-color: #0E308D;
   .tittle {
-    margin-left: 20px;
+    display: flex;
+    justify-content: center;
+    color: white;
   }
 
   .form {
-
+    background-color: white;
+    padding: 10px;
     .form-container {
       display: flex;
       flex-direction: column;

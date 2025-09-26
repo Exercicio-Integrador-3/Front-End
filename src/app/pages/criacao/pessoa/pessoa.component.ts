@@ -45,7 +45,7 @@ export class PessoaComponent implements OnInit {
   abrirModal() {
     const dialogRef = this.dialog.open(PessoaModalComponent, {
       width: '600px',
-      height: '300px',
+      height: '270px',
       disableClose: false
     });
 

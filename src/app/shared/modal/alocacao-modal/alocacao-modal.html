@@ -1,6 +1,6 @@
 <div class="modal-nova-alocacao">
   <div class="title">
-    <h2 mat-dialog-title>Nova Alocação</h2>
+    <h2 mat-dialog-title>NOVA ALOCAÇÃO</h2>
   </div>
 
   <div class="form scrollable">
@@ -89,24 +89,22 @@
         </mat-error>
       </mat-form-field>
 
-      
       <mat-error *ngIf="erroApi" class="erro-api">
         {{ erroApi }}
       </mat-error>
-
-      <div class="button-row">
-        <button mat-button color="warn" type="button" (click)="fecharModal()">Cancelar</button>
-        <button
-          mat-flat-button
-          color="primary"
-          type="button"
-          [disabled]="alocacaoForm.invalid"
-          (click)="salvarAlocacao()"
-        >
-          Salvar
-        </button>
-      </div>
-
     </form>
+  </div>
+
+  <div class="button-row">
+    <button mat-button color="warn" type="button" (click)="fecharModal()">Cancelar</button>
+    <button
+      mat-flat-button
+      color="primary"
+      type="button"
+      [disabled]="alocacaoForm.invalid"
+      (click)="salvarAlocacao()"
+    >
+      Salvar
+    </button>
   </div>
 </div>

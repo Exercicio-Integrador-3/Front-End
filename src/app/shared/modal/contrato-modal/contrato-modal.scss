@@ -1,42 +1,43 @@
 .modal-novo-contrato {
-
-    padding: 10px;
-
+    background-color: #0E308D;
     .title {
-        margin: 0;
-        margin-left: 20px;
+    display: flex;
+    justify-content: center;
+    color: white;
     }
 
-    .form-container {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
+    .form{
+        .form-container {
+            display: flex;
+            flex-direction: column;
 
-    .form-grid {
-        padding: 20px;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1rem;
-
-        @media (max-width: 600px) {
-        grid-template-columns: 1fr;
-            .descricao-field {
-                grid-column: span 1;
-            }
-        } 
-    }
-    .error{
-            display : flex;
-            justify-content: center;
-            width: 100%;
+            background-color: white;
+            padding: 10px;
         }
-    
-    .button-row {
-        display: flex;
-        justify-content: flex-end;
-        padding: 20px;
-    }
 
-   
+        .form-grid {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+
+            @media (max-width: 600px) {
+            grid-template-columns: 1fr;
+                .descricao-field {
+                    grid-column: span 1;
+                }
+            } 
+        }
+        .error{
+                display : flex;
+                justify-content: center;
+                width: 100%;
+            }
+        
+        .button-row {
+            display: flex;
+            justify-content: flex-end;
+            padding: 20px;
+        }
+    }
 }
