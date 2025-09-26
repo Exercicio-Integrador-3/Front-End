@@ -8,6 +8,7 @@ export interface Projeto {
   dataInicio: string;
   dataFim: string;
   descricao: string;
+  is_active: boolean
 }
 
 export interface CreateProjetoDto {

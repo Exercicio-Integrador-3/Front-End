@@ -21,7 +21,7 @@ import { CustoGeralModalComponent } from '../../../shared/modal/custo-geral-moda
 })
 export class ProjetoComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'nome', 'dataInicio', 'dataFim', 'descricao','acoes'];
+  displayedColumns: string[] = ['id', 'nome', 'dataInicio', 'dataFim', 'descricao','ativo','acoes'];
 
   dataSource: Projeto[] = [];
 
@@ -32,7 +32,7 @@ export class ProjetoComponent implements OnInit {
 
   ngOnInit(): void {
     this.projetoService.getProjetos().subscribe({
-      next: (projetos) => this.dataSource = projetos,
+      next: (projetos) => {this.dataSource = projetos; console.log(projetos)},
       error: (err) => console.error('Erro ao buscar projetos', err)
     });
   }
