@@ -1,4 +1,3 @@
-import { CurrencyPipe, DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,6 +12,7 @@ export interface Pessoa {
 
 @Component({
   selector: 'app-pessoa',
+  standalone: true,
   imports: [
     MatDialogModule,
     MatIconModule,
@@ -21,10 +21,9 @@ export interface Pessoa {
   templateUrl: './pessoa.html',
   styleUrl: './pessoa.scss'
 })
-export class PessoaComponent implements OnInit{
- 
-  displayedColumns: string[] = ['id', 'nome'];
+export class PessoaComponent implements OnInit {
 
+  displayedColumns: string[] = ['id', 'nome'];
   dataSource: Pessoa[] = [];
 
   constructor(
@@ -33,17 +32,27 @@ export class PessoaComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
+    this.carregarPessoas();
+  }
+
+  carregarPessoas() {
     this.pessoaService.getAll().subscribe({
-      next: (pessoa) => this.dataSource = pessoa,
+      next: (pessoas) => this.dataSource = pessoas,
       error: (err) => console.error('Erro ao buscar pessoas', err)
     });
   }
 
   abrirModal() {
-    this.dialog.open(PessoaModalComponent, {
+    const dialogRef = this.dialog.open(PessoaModalComponent, {
       width: '600px',
       height: '300px',
       disableClose: false
+    });
+
+    dialogRef.afterClosed().subscribe((criado) => {
+      if (criado) {
+        this.carregarPessoas(); 
+      }
     });
   }
 }

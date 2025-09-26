@@ -70,10 +70,13 @@ export class ContratoModalComponent implements OnInit {
     if (inicio && fim && new Date(fim) < new Date(inicio)) {
       group.get('dataFim')?.setErrors({ dataInvalida: true });
     } else {
-      group.get('dataFim')?.setErrors(null);
+      if (group.get('dataFim')?.hasError('dataInvalida')) {
+        group.get('dataFim')?.setErrors(null);
+      }
     }
     return null;
   }
+
 
   salvarContrato() {
     if (this.contratoForm.valid) {

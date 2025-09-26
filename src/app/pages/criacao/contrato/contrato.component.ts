@@ -25,13 +25,14 @@ export interface Contrato {
     MatDialogModule,
     MatIconModule,
     MatTableModule,
-    DatePipe,       
-    CurrencyPipe    
+    DatePipe,
+    CurrencyPipe
   ],
   templateUrl: './contrato.html',
   styleUrl: './contrato.scss'
 })
-export class ContratoComponent implements OnInit{
+export class ContratoComponent implements OnInit {
+
   displayedColumns: string[] = ['id', 'nome', 'funcao', 'dataInicio', 'dataFim', 'horasSemanais', 'salarioHora'];
   dataSource: Contrato[] = [];
 
@@ -41,17 +42,27 @@ export class ContratoComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
+    this.carregarContratos();
+  }
+
+  carregarContratos() {
     this.contratoService.getContratos().subscribe({
-      next: (contrato) => this.dataSource = contrato,
+      next: (contratos) => this.dataSource = contratos,
       error: (err) => console.error('Erro ao buscar contratos', err)
     });
   }
- 
+
   abrirModal() {
-    this.dialog.open(ContratoModalComponent, {
+    const dialogRef = this.dialog.open(ContratoModalComponent, {
       width: '600px',
       height: '635px',
       disableClose: false
+    });
+
+    dialogRef.afterClosed().subscribe((criado) => {
+      if (criado) {
+        this.carregarContratos();
+      }
     });
   }
 }
